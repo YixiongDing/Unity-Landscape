@@ -58,7 +58,7 @@
      <Compile Include="Assets\Scripts\CameraMotion.cs" />
      <Compile Include="Assets\Scripts\DiamondSquare.cs" />
      <Compile Include="Assets\Scripts\Object2Terrain.cs" />
-     <Compile Include="Assets\Scripts\SunOrbit.cs" />
+     <Compile Include="Assets\Scripts\PointLight.cs" />
      <None Include="Assets\Scripts\PhongShader.shader" />
      <None Include="Assets\Scripts\TerrainShader.shader" />
  <Reference Include="Unity.Timeline.Editor">

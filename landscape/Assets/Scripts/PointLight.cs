@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SunOrbit : MonoBehaviour
+public class PointLight: MonoBehaviour
 {
+    public Color color;
     public Transform center;
     public Vector3 axis = Vector3.up;
     public Vector3 desiredPosition;
@@ -16,5 +17,9 @@ public class SunOrbit : MonoBehaviour
         transform.RotateAround(center.position, axis, rotationSpeed * Time.deltaTime);
         desiredPosition = (transform.position - center.position).normalized * radius + center.position;
         transform.position = Vector3.MoveTowards(transform.position, desiredPosition, radiusSpeed);
+    }
+    public Vector3 GetWorldPosition()
+    {
+        return this.transform.position;
     }
 }

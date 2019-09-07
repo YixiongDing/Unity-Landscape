@@ -5,27 +5,42 @@ using UnityEngine;
 public class DiamondSquare : MonoBehaviour
 {
     public Shader shader;
-    public Texture texture;
+    // public Texture texture;
     public int mDivisions;
     public float mSize;
     public float mHeight;
+    public PointLight pointLight;
 
     Vector3[] mVerts;
+    Color[] mColors;
     int mVertsCount;
 
     void Start()
     {
-        CreateTerrain();
+        MeshFilter terrainMesh = this.gameObject.AddComponent<MeshFilter>();
+        terrainMesh.mesh = this.CreateTerrain();
         MeshRenderer renderer = this.gameObject.AddComponent<MeshRenderer>();
+        MeshCollider terrainCollider = this.gameObject.AddComponent<MeshCollider>();
+
         renderer.material.shader = shader;
-        renderer.material.mainTexture = texture;
+        // renderer.material.mainTexture = texture;
+    }
+    void Update()
+    {
+        MeshRenderer renderer = this.gameObject.GetComponent<MeshRenderer>();
+
+        // Pass updated light positions to shader
+        renderer.material.SetColor("_PointLightColor", this.pointLight.color);
+        renderer.material.SetVector("_PointLightPosition", this.pointLight.GetWorldPosition());
     }
 
+
     // Update is called once per frame
-    void CreateTerrain()
+    Mesh CreateTerrain()
     {
         mVertsCount = (mDivisions + 1) * (mDivisions + 1);
         mVerts = new Vector3[mVertsCount];
+        mColors = new Color[mVertsCount];
         Vector2[] uvs = new Vector2[mVertsCount];
         int[] tris = new int[mDivisions * mDivisions * 6];
 
@@ -34,7 +49,6 @@ public class DiamondSquare : MonoBehaviour
 
         Mesh mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
-
         int triOffset = 0;
 
         for (int i = 0; i <= mDivisions; i++)
@@ -70,6 +84,8 @@ public class DiamondSquare : MonoBehaviour
         mVerts[mVerts.Length - 1].y = Random.Range(-mHeight, mHeight);
         mVerts[mVerts.Length - 1 - mDivisions].y = Random.Range(-mHeight, mHeight);
 
+        
+
         int interations = (int)Mathf.Log(mDivisions, 2);
         int numSquares = 1;
         int squareSize = mDivisions;
@@ -92,12 +108,53 @@ public class DiamondSquare : MonoBehaviour
 
         }
 
+        for (int i = 0; i < mVerts.Length; ++i)
+        {
+            if (mVerts[i].y > 70)
+            {
+                mColors[i] = Color.white;
+            }
+            if (mVerts[i].y < 10)
+            {
+                mColors[i] = Color.yellow;
+            }
+            if (10 <= mVerts[i].y && mVerts[i].y <= 70)
+            {
+                mColors[i] = Color.green;
+            }
+
+        }
+
+        //for (int i = 0; i < mVerts.Length; ++i)
+        //{
+        //    if (mVerts[i].y > 70)
+        //    {
+        //        uvs[i] = new Vector2(0.0f, 0.666f);
+        //        uvs[++i] = new Vector2(0.0f, 1.0f);
+        //        uvs[++i] = new Vector2(0.333f, 1.0f);
+        //    }
+        //    if (mVerts[i].y < 10)
+        //    {
+        //        uvs[i] = new Vector2(0.333f, 0.333f);
+        //        uvs[++i] = new Vector2(0.666f, 0.0f);
+        //        uvs[++i] = new Vector2(0.333f, 0.0f);
+        //    }
+        //    if (10 <= mVerts[i].y && mVerts[i].y <= 70)
+        //    {
+        //        uvs[i] = new Vector2(0.666f, 0.666f);
+        //        uvs[++i] = new Vector2(0.333f, 0.666f);
+        //        uvs[++i] = new Vector2(0.333f, 1.0f);
+        //    }
+
+        //}
+
         mesh.vertices = mVerts;
         mesh.uv = uvs;
+        mesh.colors = mColors;
         mesh.triangles = tris;
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
-
+        return mesh;
        
     }
 
