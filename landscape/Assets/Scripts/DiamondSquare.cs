@@ -21,6 +21,8 @@ public class DiamondSquare : MonoBehaviour
         terrainMesh.mesh = this.CreateTerrain();
         MeshRenderer renderer = this.gameObject.AddComponent<MeshRenderer>();
         MeshCollider terrainCollider = this.gameObject.AddComponent<MeshCollider>();
+        terrainCollider.convex = true;
+        terrainCollider.isTrigger = true;
 
         renderer.material.shader = shader;
         // renderer.material.mainTexture = texture;
