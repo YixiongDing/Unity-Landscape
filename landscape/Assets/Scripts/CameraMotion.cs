@@ -38,9 +38,7 @@ public class CameraMotion : MonoBehaviour
         prevHead = Input.mousePosition;
 
         /** Parse keyboard movements */
-        pos = getDirection();
-        pos = pos * speed;
-        pos = pos * Time.deltaTime;
+        pos = getDirection() * speed * Time.deltaTime;
         transform.Translate(pos);
 
     }
@@ -48,23 +46,24 @@ public class CameraMotion : MonoBehaviour
     /** Keybindings for keyboard controls */
     private Vector3 getDirection()
     {
-        Vector3 vel = new Vector3();
+        //Vector3 movement = new Vector3();
+        var movement = Vector3.zero;
 
         if (Input.GetKey(KeyCode.W))
         {
-            vel += new Vector3(0, 0, 1);
+            movement += new Vector3(0, 0, 1);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            vel += new Vector3(0, 0, -1);
+            movement += new Vector3(0, 0, -1);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            vel += new Vector3(-1, 0, 0);
+            movement += new Vector3(-1, 0, 0);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            vel += new Vector3(1, 0, 0);
+            movement += new Vector3(1, 0, 0);
         }
         if (Input.GetKey(KeyCode.Q))
         {
@@ -74,12 +73,21 @@ public class CameraMotion : MonoBehaviour
         {
             roll += -0.5f;
         }
-        return vel;
+        if (Input.GetKey(KeyCode.Space))
+        {
+           movement += new Vector3(0, 1, 0); 
+        }
+        return movement;
     }
 
     /** Collision response */
-    void OnTriggerEnter(Collider col)
-    {
-        transform.Translate(-pos * 5);
-    }
+    //void OnTriggerEnter(Collider col)
+    //{
+    //    transform.Translate(-pos * 5);
+    //}
+
+    //void OnCollisionEnter(Collider col)
+    //{
+    //}
+
 }

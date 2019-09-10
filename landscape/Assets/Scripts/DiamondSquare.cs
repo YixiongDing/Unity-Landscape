@@ -21,8 +21,8 @@ public class DiamondSquare : MonoBehaviour
         terrainMesh.mesh = this.CreateTerrain();
         MeshRenderer renderer = this.gameObject.AddComponent<MeshRenderer>();
         MeshCollider terrainCollider = this.gameObject.AddComponent<MeshCollider>();
-        terrainCollider.convex = true;
-        terrainCollider.isTrigger = true;
+        //terrainCollider.convex = true;
+        //terrainCollider.isTrigger = true;
 
         renderer.material.shader = shader;
         // renderer.material.mainTexture = texture;
@@ -86,7 +86,7 @@ public class DiamondSquare : MonoBehaviour
         mVerts[mVerts.Length - 1].y = Random.Range(-mHeight, mHeight);
         mVerts[mVerts.Length - 1 - mDivisions].y = Random.Range(-mHeight, mHeight);
 
-        
+
 
         int interations = (int)Mathf.Log(mDivisions, 2);
         int numSquares = 1;
@@ -107,20 +107,37 @@ public class DiamondSquare : MonoBehaviour
             numSquares *= 2;
             squareSize /= 2;
             mHeight *= 0.5f;
-
         }
+
+        float maxHeight = 0.0f;
+        float minHeight = 0.0f;
 
         for (int i = 0; i < mVerts.Length; ++i)
         {
-            if (mVerts[i].y > 70)
+            if (mVerts[i].y > maxHeight)
+            {
+                maxHeight = mVerts[i].y;
+            }
+            else if (mVerts[i].y < minHeight)
+            {
+                minHeight = mVerts[i].y;
+            }
+        }
+
+        float firstLayer = 0.4f * (maxHeight - minHeight) + minHeight;
+        float secondLayer = 0.7f * (maxHeight - minHeight) + minHeight;
+
+        for (int i = 0; i < mVerts.Length; ++i)
+        {
+            if (mVerts[i].y > secondLayer)
             {
                 mColors[i] = Color.white;
             }
-            if (mVerts[i].y < 10)
+            if (mVerts[i].y < firstLayer)
             {
                 mColors[i] = Color.yellow;
             }
-            if (10 <= mVerts[i].y && mVerts[i].y <= 70)
+            if (firstLayer <= mVerts[i].y && mVerts[i].y <= secondLayer)
             {
                 mColors[i] = Color.green;
             }
@@ -157,7 +174,7 @@ public class DiamondSquare : MonoBehaviour
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
         return mesh;
-       
+
     }
 
     void DiamondSquareGenerator(int row, int col, int size, float offset)
