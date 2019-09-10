@@ -3,7 +3,9 @@ guid: 8a5bba9508c47234f92cccb96533d8d9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - shader: {fileID: 4800000, guid: 98c1ce93c6246db49badc6cf6ab732ae, type: 3}
+  - pointLight: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -6,9 +6,9 @@ public class DiamondSquare : MonoBehaviour
 {
     public Shader shader;
     // public Texture texture;
-    public int mDivisions;
-    public float mSize;
-    public float mHeight;
+    public int mDivisions = 128;
+    public float mSize = 1000;
+    public float mHeight = 300;
     public PointLight pointLight;
 
     Vector3[] mVerts;
