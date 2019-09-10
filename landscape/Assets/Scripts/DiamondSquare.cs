@@ -86,7 +86,10 @@ public class DiamondSquare : MonoBehaviour
         mVerts[mVerts.Length - 1].y = Random.Range(-mHeight, mHeight);
         mVerts[mVerts.Length - 1 - mDivisions].y = Random.Range(-mHeight, mHeight);
 
-
+        //mVerts[0].y = -250;
+        //mVerts[mDivisions].y = -250;
+        //mVerts[mVerts.Length - 1].y = -250;
+        //mVerts[mVerts.Length - 1 - mDivisions].y = 200;
 
         int interations = (int)Mathf.Log(mDivisions, 2);
         int numSquares = 1;
@@ -126,20 +129,42 @@ public class DiamondSquare : MonoBehaviour
 
         float firstLayer = 0.4f * (maxHeight - minHeight) + minHeight;
         float secondLayer = 0.7f * (maxHeight - minHeight) + minHeight;
+        
+        GameObject water = GameObject.Find("Water");
+        water.GetComponent<MeshRenderer>().enabled = true;
+        //if ( minHeight + firstLayer > 0.0f )
+        //{
+        //    water.transform.Translate(new Vector3(0.0f, minHeight + firstLayer/2, 0.0f));
+        //}
+
+        water.transform.Translate(new Vector3(0.0f, minHeight + 4 * (firstLayer-minHeight) / 5, 0.0f));
+
+        float midLayer = 30.0f;
+        float randomColor = 0.0f;
 
         for (int i = 0; i < mVerts.Length; ++i)
         {
-            if (mVerts[i].y > secondLayer)
+            if (mVerts[i].y > secondLayer + midLayer)
             {
                 mColors[i] = Color.white;
             }
-            if (mVerts[i].y < firstLayer)
+            else if (secondLayer < mVerts[i].y && mVerts[i].y < (secondLayer + midLayer))
             {
-                mColors[i] = Color.yellow;
+                randomColor = Random.Range(0f, 1f);
+                mColors[i] = new Color(randomColor, 1, randomColor, 1);
             }
-            if (firstLayer <= mVerts[i].y && mVerts[i].y <= secondLayer)
+            else if (mVerts[i].y < firstLayer)
             {
-                mColors[i] = Color.green;
+                mColors[i] = new Color(1f, 0.72f, 0.08f, 1);
+            }
+            else if (firstLayer <= mVerts[i].y && mVerts[i].y < firstLayer + midLayer)
+            {
+                randomColor = Random.Range(0f, 1f);
+                mColors[i] = new Color(randomColor, 0.72f, 0.08f, 1);
+            }
+            else if (firstLayer + midLayer <= mVerts[i].y && mVerts[i].y <= secondLayer)
+            {
+                mColors[i] = new Color(0f, 0.72f, 0.08f, 1);
             }
 
         }
