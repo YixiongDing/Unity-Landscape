@@ -29,7 +29,7 @@ public class CameraMotion : MonoBehaviour
         pitch -= Input.GetAxis("Mouse Y");
         yaw += Input.GetAxis("Mouse X");
 
-        force = new Vector3(xForce * 20, 0.0F, zForce * 20);
+        force = new Vector3(xForce * 2000, 0.0F, zForce * 2000);
 
         rd.transform.localEulerAngles = new Vector3(pitch * 10, yaw * 10, 0.0F);
         rd.AddRelativeForce(force);

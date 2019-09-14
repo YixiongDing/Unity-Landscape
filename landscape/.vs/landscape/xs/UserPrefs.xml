@@ -1,0 +1,30 @@
+﻿<Properties StartupConfiguration="{CBCB3FDF-D640-8D91-8CD9-732E742FD1EF}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DiamondSquare.cs">
+    <Files>
+      <File FileName="Assets/Scripts/CameraMotion.cs" Line="32" Column="60" />
+      <File FileName="Assets/Scripts/PointLight.cs" Line="23" Column="40" />
+      <File FileName="Assets/Scripts/DiamondSquare.cs" Line="221" Column="2" />
+      <File FileName="Assets/Scripts/PhongShader.shader" Line="23" Column="20" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="landscape" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="DiamondSquare.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="dcc56e88-8ec2-4537-96ca-907db15541d1" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
